@@ -1,0 +1,7 @@
+dist/*
+coverage/*
+**/*.d.ts
+# 3rd party libs
+/src/assets/libs/*
+# custom definition files
+/src/types/*
