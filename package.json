@@ -5,16 +5,16 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run serve",
-    "build": "npm run build-sass && npm run build-ts && npm run lint && npm run copy-static-assets",
+    "build": "npm run build-sass && npm run build-ts && npm run lint && npm run copy-assets",
     "serve": "node dist/app.js",
     "watch-node": "nodemon dist/app.js",
     "watch": "concurrently -k -p \"[{name}]\" -n \"Sass,TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-sass\" \"npm run watch-ts\" \"npm run watch-node\"",
     "build-ts": "tsc",
     "watch-ts": "tsc -w",
-    "build-sass": "node-sass src/assets/styles/main.scss dist/public/css/vibewebapp.css",
-    "watch-sass": "node-sass -w src/assets/styles/main.scss dist/public/css/vibewebapp.css",
+    "build-sass": "node-sass src/assets/styles/main.scss dist/assets/styles/vibewebapp.css",
+    "watch-sass": "node-sass -w src/assets/styles/main.scss dist/assets/styles/vibewebapp.css",
     "lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
-    "copy-static-assets": "ts-node copyStaticAssets.ts"
+    "copy-assets": "ts-node copy-assets.ts"
   },
   "repository": {
     "type": "git",
@@ -48,6 +48,7 @@
     "typescript": "^3.5.3"
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "hbs": "^4.0.4"
   }
 }

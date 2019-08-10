@@ -1,7 +1,8 @@
-import express = require('express');
+import express from 'express';
 
 const app = express();
 
+app.set('view engine', 'hbs');
 app.get('/', (req, res): void => {
   res.send('Hello World!');
 });
