@@ -1,18 +1,16 @@
 import { DB } from '../db/db';
 import { QueryResult } from 'pg';
-import { IDAO } from '../types/dao.interface';
 
-class ToursDAOConstruct {
-  public readonly db: DB;
-}
-class ToursDAO implements IDAO {
-  public db: DB;
+class TourDAO {
+  public static db: DB;
 
-  constructor(construct: ToursDAOConstruct) {
-    this.db = construct.db;
+  public static init(params: {
+    readonly db: DB;
+  }): void {
+    this.db = params.db;
   }
 
-  public async getTourById(id: number): Promise<QueryResult> {
+  public static async getTourById(id: number): Promise<QueryResult> {
     const query = `
       SELECT  id, min_seats, max_seats, price, length_min, active, title, slug FROM tours
       WHERE id = $1
@@ -21,7 +19,7 @@ class ToursDAO implements IDAO {
     return await  this.db.pool.query(query, [id]);
   }
 
-  public async getTourBySlug(slug: string): Promise<QueryResult> {
+  public static async getTourBySlug(slug: string): Promise<QueryResult> {
     const query = `
       SELECT id, min_seats, max_seatss, price, length_min, active, title FROM tours
       WHERE slug = $1
@@ -30,7 +28,7 @@ class ToursDAO implements IDAO {
     return await this.db.pool.query(query, [slug]);
   }
 
-  public async getAllTours(): Promise<QueryResult> {
+  public static async getAllTours(): Promise<QueryResult> {
     const query = `
       SELECT id, min_seats, max_seats, price, length_min, active, title, title_image, summary, slug, categories FROM tours 
         ORDER BY title
@@ -40,7 +38,7 @@ class ToursDAO implements IDAO {
 
   }
 
-  public async getAllToursByCategory(category: string): Promise<QueryResult> {
+  public static async getAllToursByCategory(category: string): Promise<QueryResult> {
     const query = `
       SELECT id, min_seats, max_seats, price, length_min, active, title, title_image, summary, slug, categories FROM tours WHERE $1 <@ categories 
         AND active = TRUE 
@@ -52,5 +50,5 @@ class ToursDAO implements IDAO {
 }
 
 export {
-  ToursDAO
+  TourDAO
 };
