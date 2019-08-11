@@ -11,12 +11,10 @@ class TourController {
   }
 
   public static getAllTours(req: express.Request, res: express.Response): void {
-    console.log('getAll');
-    res.render('tours');
+    res.render('pages/tours');
   }
 
   public static getAllToursByCategory(req: express.Request, res: express.Response): void {
-    console.log('getAllToursByCategory');
     res.render('tours');
   }
 
